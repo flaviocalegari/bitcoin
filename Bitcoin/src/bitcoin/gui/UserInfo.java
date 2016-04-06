@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bitcoin;
+package bitcoin.gui;
+import bitcoin.BitCoin;
+import bitcoin.pn.MulticastPeer;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -14,11 +17,14 @@ public class UserInfo extends javax.swing.JFrame {
     /**
      * Creates new form UserInfo
      */
-    BitCoin sessao;
+    private BitCoin sessao;
+    MulticastPeer conexao;
     public UserInfo(BitCoin sessao) {
         initComponents();
         this.setVisible(true);
         this.sessao = sessao;
+        //this.conexao = conexao;
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -106,13 +112,34 @@ public class UserInfo extends javax.swing.JFrame {
         float coin = Float.parseFloat(bitcoinField.getText());
         sessao.setNome(userName);
         sessao.setCarteira(coin);
+        //conexao = sessao.getMultiCast();
+        this.conexao =  new MulticastPeer(sessao);
+        
+        System.out.println("conexao " + conexao);
+        conexao.teste();        
         new BitCoinGraf(this.sessao);
         this.setVisible(false);
+        
+        //new MulticastPeer(sessao);
+        
     }//GEN-LAST:event_joinButtonActionPerformed
+  
+        private void start() {
+        SwingWorker worker = new SwingWorker() {
+            @Override
+            protected Void doInBackground() 
+              throws Exception{ 
+                for (int i = 0; i <= 10; i++) { Thread.sleep(1000);
+                
+                } 
+                return null;} 
+        };
+        worker.execute(); 
+        }
 
-    /**
-     * @param args the command line arguments
-     */
+                
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bitcoinField;
