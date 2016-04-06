@@ -1,4 +1,4 @@
-package bitcoin;
+package bitcoin.pn;
 import java.io.*;  
 import java.util.*;  
 import javax.crypto.*;  

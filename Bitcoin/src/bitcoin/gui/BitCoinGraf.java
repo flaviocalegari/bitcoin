@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bitcoin;
-
+package bitcoin.gui;
+import bitcoin.BitCoin;
 /**
  *
  * @author flavio
@@ -21,6 +21,7 @@ public class BitCoinGraf extends javax.swing.JFrame {
         
         initComponents();
         this.setVisible(true);
+        
     }
 
     /**

@@ -1,24 +1,16 @@
 package bitcoin;
+import bitcoin.gui.UserInfo;
+import bitcoin.pn.MulticastPeer;
+import java.io.Serializable;
 
-public class BitCoin {
+public class BitCoin implements Serializable {
     
-    private  float carteira;
-    private String nome;
-    private int n_usuarios;
+    public  float carteira;
+    public String nome;
+    public  int n_usuarios;
+    public UserInfo tela_login;
+    public MulticastPeer conexao;
     
-    
-    public BitCoin(){
-        
-        UserInfo tela_login = new UserInfo(this);            
-        new MulticastPeer();
-    }
-    
-    public static void main(String[] args) {
-              
-        new BitCoin();
-        
-    }
-
     public float getCarteira() {
         return carteira;
     }
@@ -41,6 +33,8 @@ public class BitCoin {
 
     public void setN_usuarios(int n_usuarios) {
         this.n_usuarios = n_usuarios;
-    }
+    }   
+    
+ 
     
 }
