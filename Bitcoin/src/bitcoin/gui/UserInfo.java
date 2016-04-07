@@ -5,6 +5,7 @@
  */
 package bitcoin.gui;
 import bitcoin.BitCoin;
+
 import bitcoin.pn.MulticastPeer;
 import javax.swing.SwingWorker;
 
@@ -125,21 +126,7 @@ public class UserInfo extends javax.swing.JFrame {
         
         SwingWorker worker;
         MulticastPeer conexao = null;
-        worker = new SwingWorker() {
-            public MulticastPeer con;
-            @Override
-            protected MulticastPeer doInBackground()
-                    throws Exception {
-                this.con = new MulticastPeer(sessao);
-                return null;
-            }
-            protected MulticastPeer onPostExecute(Long result) {
-                 return conexao;
-                 }
-        };        
-        
-        worker.execute();
-       return conexao; 
+        return conexao = new SwingWorkerImpl().onPostExecute();                 
     }
 
                 
@@ -154,4 +141,27 @@ public class UserInfo extends javax.swing.JFrame {
     private javax.swing.JTextField usernameField;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
+
+    private class SwingWorkerImpl extends SwingWorker<MulticastPeer, Void> {
+
+        private MulticastPeer conexao;
+
+        public SwingWorkerImpl() {
+            this.execute();
+            
+        }        
+
+        @Override
+        protected MulticastPeer doInBackground()
+                throws Exception {
+            this.conexao = new MulticastPeer(sessao);
+            return null;
+        }
+
+        public MulticastPeer onPostExecute() {
+            return conexao;
+        }
+        
+        
+    }
 }
