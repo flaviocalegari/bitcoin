@@ -9,7 +9,7 @@ public class MulticastPeer {
     public BitCoin sessao;
     InetAddress group;
     MulticastSocket socket;
-     PeerReceive p;
+    PeerReceive p;
     
     public MulticastPeer(BitCoin sessao) {
         
@@ -26,7 +26,7 @@ public class MulticastPeer {
           
             Scanner scan = new Scanner(System.in);
             String message = "entrar";
-            message = "Multicast iniciado";
+            message = this.sessao.getNome()+  " entrou no sistema!";
             messageOut = new DatagramPacket(message.getBytes(), message.length(), this.group, 6789);
             this.socket.send(messageOut);
             
@@ -64,11 +64,8 @@ public class MulticastPeer {
      public void anunciaEntrada(){
          
        
-        try {
-
-            
-            DatagramPacket messageOut;          
-                        
+        try {            
+            DatagramPacket messageOut;                                
           
             //Scanner scan = new Scanner(System.in);
             String message = "entrar";
@@ -89,13 +86,11 @@ public class MulticastPeer {
 
         }
          finally {
-
             if (socket != null) {
                 socket.close();
             }
         }
     }
-
 }
 
 class PeerReceive extends Thread {
@@ -106,17 +101,13 @@ class PeerReceive extends Thread {
         
         this.s = s;
         this.start(); // Inicia thread ...
-    }
-    
+    }    
     
     public void run() {
         
-        try {
-            
-            
+        try {                        
             while (true) { // Loop para ficar recebendo mensagens ...
-                
-                
+                                
                 byte[] buffer = new byte[1000];
                 DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
                 String message;
@@ -124,14 +115,10 @@ class PeerReceive extends Thread {
                 s.receive(messageIn);
                 message = new String(messageIn.getData());
                 System.out.println("Received:" + message);
-            }
-            
+            }            
         } catch (IOException ex) {
             
             System.out.println("Um abraço");
-        }
-        
-    }
-    
-   
+        }        
+    }       
 }

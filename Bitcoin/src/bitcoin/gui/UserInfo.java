@@ -14,11 +14,9 @@ import javax.swing.SwingWorker;
  */
 public class UserInfo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form UserInfo
-     */
     private BitCoin sessao;
-    MulticastPeer conexao;
+    public MulticastPeer conexao;
+    
     public UserInfo(BitCoin sessao) {
         initComponents();
         this.setVisible(true);
@@ -26,7 +24,6 @@ public class UserInfo extends javax.swing.JFrame {
         //this.conexao = conexao;
         
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -112,30 +109,38 @@ public class UserInfo extends javax.swing.JFrame {
         float coin = Float.parseFloat(bitcoinField.getText());
         sessao.setNome(userName);
         sessao.setCarteira(coin);
-        //conexao = sessao.getMultiCast();
-        this.conexao =  new MulticastPeer(sessao);
+        //conexao = sessao.getMultiCast();     
         
-        System.out.println("conexao " + conexao);
-        conexao.teste();        
+        
+        //System.out.println("conexao " + conexao);
+        //conexao.teste();        
         new BitCoinGraf(this.sessao);
         this.setVisible(false);
-        
-        //new MulticastPeer(sessao);
-        
+        this.conexao = start();
+        System.out.println(""+this.conexao);
+        //new MulticastPeer(sessao);        
     }//GEN-LAST:event_joinButtonActionPerformed
   
-        private void start() {
-        SwingWorker worker = new SwingWorker() {
+    private MulticastPeer start() {
+        
+        SwingWorker worker;
+        MulticastPeer conexao = null;
+        worker = new SwingWorker() {
+            public MulticastPeer con;
             @Override
-            protected Void doInBackground() 
-              throws Exception{ 
-                for (int i = 0; i <= 10; i++) { Thread.sleep(1000);
-                
-                } 
-                return null;} 
-        };
-        worker.execute(); 
-        }
+            protected MulticastPeer doInBackground()
+                    throws Exception {
+                this.con = new MulticastPeer(sessao);
+                return null;
+            }
+            protected MulticastPeer onPostExecute(Long result) {
+                 return conexao;
+                 }
+        };        
+        
+        worker.execute();
+       return conexao; 
+    }
 
                 
 

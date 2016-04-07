@@ -16,9 +16,15 @@ public class MainClass {
     
     
     public static void main(String[] args) {
-        BitCoin b = new BitCoin();
         
-        UserInfo tela_login = new UserInfo(b);
+        BitCoin b = new BitCoin();
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+ 
+            public void run() {
+                UserInfo tela_login = new UserInfo(b);
+            }
+        });
+        
       
        
     }
